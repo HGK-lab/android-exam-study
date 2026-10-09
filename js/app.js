@@ -32,10 +32,6 @@
   const setTopH = () => document.documentElement.style.setProperty("--top-h", topH() + "px");
   window.addEventListener("resize", setTopH);
 
-  /* ── 폰에서는 휴대폰용 PDF로 연결 ── */
-  const setPdf = () => ($("#pdf-link").href = narrow.matches ? "android-exam-study-mobile.pdf" : "android-exam-study.pdf");
-  narrow.addEventListener("change", setPdf);
-
   /* ── 탭 ── */
   function showTab(name) {
     state.tab = name; save();
@@ -404,6 +400,5 @@
   fillTopicSelect();
   renderQuestions();
   setTopH();
-  setPdf();
   showTab(["notes", "quiz", "cheat"].includes(state.tab) ? state.tab : "notes");
 })();
