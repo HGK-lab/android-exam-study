@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>안드로이드 시험 대비 노트</title>
+  <meta name="description" content="모바일 프로그래밍 서술형 시험 대비: 요약 노트, 서술형 연습, 치트시트">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="top">
+    <div class="top-inner">
+      <div class="top-row">
+        <h1>안드로이드 시험 대비 <small>모바일 프로그래밍</small></h1>
+        <div class="tools">
+          <a href="android-exam-study.pdf" target="_blank" rel="noopener">PDF</a>
+          <button id="theme" type="button" aria-label="테마 전환">🌓</button>
+        </div>
+      </div>
+      <nav class="tabs" role="tablist">
+        <button class="tab" role="tab" data-tab="notes" aria-selected="true">요약 노트</button>
+        <button class="tab" role="tab" data-tab="quiz" aria-selected="false">서술형 연습</button>
+        <button class="tab" role="tab" data-tab="cheat" aria-selected="false">치트시트</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel" id="panel-notes">
+      <div class="bar">
+        <input id="search" type="search" placeholder="키워드 검색 (예: onPause, Intent)" class="chip" style="flex:1;min-width:180px;cursor:text">
+        <button class="chip" id="expand" type="button">모두 펼치기</button>
+        <button class="chip" id="collapse" type="button">모두 접기</button>
+      </div>
+      <div id="notes-list"></div>
+    </section>
+
+    <section class="panel" id="panel-quiz" hidden>
+      <div class="bar">
+        <select id="q-topic" aria-label="주제 선택"></select>
+        <button class="chip" data-filter="all" aria-pressed="true" type="button">전체</button>
+        <button class="chip" data-filter="todo" aria-pressed="false" type="button">안 푼 것</button>
+        <button class="chip" data-filter="bad" aria-pressed="false" type="button">헷갈림</button>
+        <button class="chip" data-filter="ok" aria-pressed="false" type="button">이해함</button>
+        <button class="chip" id="shuffle" type="button">섞기</button>
+        <span class="stats" id="stats"></span>
+      </div>
+      <div id="q-list"></div>
+      <div class="bar" style="justify-content:flex-end"><button class="chip" id="reset" type="button">기록 초기화</button></div>
+    </section>
+
+    <section class="panel" id="panel-cheat" hidden>
+      <div id="cheat-list"></div>
+    </section>
+  </main>
+
+  <p class="foot">직접 정리한 학습 노트입니다. 원본 강의자료가 아니며, [보충] 표시는 강의자료 외 보충 설명입니다. 시험 범위·정답 기준은 강의자료와 교수님 안내를 우선하세요.</p>
+
+  <script src="js/content.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
