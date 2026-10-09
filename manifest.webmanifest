@@ -1,0 +1,16 @@
+{
+  "name": "안드로이드 시험 대비 노트",
+  "short_name": "안드 시험",
+  "description": "모바일 프로그래밍 서술형 시험 대비: 요약 노트, 서술형 연습, 치트시트",
+  "lang": "ko",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6f7fb",
+  "theme_color": "#2f6fed",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

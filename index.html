@@ -2,9 +2,18 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>안드로이드 시험 대비 노트</title>
   <meta name="description" content="모바일 프로그래밍 서술형 시험 대비: 요약 노트, 서술형 연습, 치트시트">
+  <meta name="theme-color" content="#f6f7fb" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0f1420" media="(prefers-color-scheme: dark)">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="안드 시험">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -13,31 +22,47 @@
       <div class="top-row">
         <h1>안드로이드 시험 대비 <small>모바일 프로그래밍</small></h1>
         <div class="tools">
-          <a href="android-exam-study.pdf" target="_blank" rel="noopener">PDF</a>
+          <a id="pdf-link" href="android-exam-study.pdf" target="_blank" rel="noopener">PDF</a>
           <button id="theme" type="button" aria-label="테마 전환">🌓</button>
         </div>
       </div>
-      <nav class="tabs" role="tablist">
-        <button class="tab" role="tab" data-tab="notes" aria-selected="true">요약 노트</button>
-        <button class="tab" role="tab" data-tab="quiz" aria-selected="false">서술형 연습</button>
-        <button class="tab" role="tab" data-tab="cheat" aria-selected="false">치트시트</button>
+      <nav class="tabs" role="tablist" aria-label="화면 전환">
+        <button class="tab" role="tab" data-tab="notes" aria-selected="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5V5a2 2 0 0 1 2-2h14v15H6a2 2 0 0 0-2 2 2 2 0 0 0 2 2h14v-4"/></svg>
+          <span>요약 노트</span>
+        </button>
+        <button class="tab" role="tab" data-tab="quiz" aria-selected="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16zM14 6l4 4"/></svg>
+          <span>서술형 연습</span>
+        </button>
+        <button class="tab" role="tab" data-tab="cheat" aria-selected="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h12M8 12h12M8 18h12M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg>
+          <span>치트시트</span>
+        </button>
       </nav>
     </div>
   </header>
 
   <main>
     <section class="panel" id="panel-notes">
+      <nav class="topic-nav" id="topic-nav" aria-label="주제 바로가기"></nav>
       <div class="bar">
-        <input id="search" type="search" placeholder="키워드 검색 (예: onPause, Intent)" class="chip" style="flex:1;min-width:180px;cursor:text">
-        <button class="chip" id="expand" type="button">모두 펼치기</button>
-        <button class="chip" id="collapse" type="button">모두 접기</button>
+        <input id="search" type="search" placeholder="키워드 검색 (예: onPause, Intent)" class="chip search">
+        <button class="chip" id="expand" type="button"><span class="lg">모두 </span>펼치기</button>
+        <button class="chip" id="collapse" type="button"><span class="lg">모두 </span>접기</button>
       </div>
       <div id="notes-list"></div>
     </section>
 
     <section class="panel" id="panel-quiz" hidden>
       <div class="bar">
+        <div class="seg" role="group" aria-label="보기 방식">
+          <button type="button" data-mode="card" aria-pressed="false">카드</button>
+          <button type="button" data-mode="list" aria-pressed="false">목록</button>
+        </div>
         <select id="q-topic" aria-label="주제 선택"></select>
+      </div>
+      <div class="bar">
         <button class="chip" data-filter="all" aria-pressed="true" type="button">전체</button>
         <button class="chip" data-filter="todo" aria-pressed="false" type="button">안 푼 것</button>
         <button class="chip" data-filter="bad" aria-pressed="false" type="button">헷갈림</button>
@@ -51,6 +76,14 @@
 
     <section class="panel" id="panel-cheat" hidden>
       <div id="cheat-list"></div>
+      <section class="cheat downloads">
+        <h4>PDF · 앱으로 쓰기</h4>
+        <div class="dl-row">
+          <a class="btn primary" href="android-exam-study-mobile.pdf" target="_blank" rel="noopener">휴대폰용 PDF</a>
+          <a class="btn" href="android-exam-study.pdf" target="_blank" rel="noopener">A4 인쇄용 PDF</a>
+        </div>
+        <p>브라우저 메뉴에서 <b>홈 화면에 추가</b>를 누르면 앱처럼 열리고, 한 번 열어 둔 뒤에는 인터넷이 없어도 볼 수 있어요. 진행 기록과 써 둔 답안은 이 기기 브라우저에만 저장돼요.</p>
+      </section>
     </section>
   </main>
 

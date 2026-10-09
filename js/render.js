@@ -3,7 +3,6 @@
   const esc = (s) =>
     String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-
   function table(head, rows) {
     return (
       `<div class="tbl-wrap"><table><thead><tr>${head.map((h) => `<th>${h}</th>`).join("")}</tr></thead><tbody>` +
@@ -26,7 +25,8 @@
         return `<div class="tip">${b.html}</div>`;
       case "fig":
         return (
-          `<figure class="diagram"><div class="fig-scroll">${window.Diagrams[b.id]()}</div>` +
+          `<figure class="diagram"><div class="fig-w">${window.Diagrams[b.id](false)}</div>` +
+          `<div class="fig-n">${window.Diagrams[b.id](true)}</div>` +
           `<figcaption>${b.cap}</figcaption>` +
           (b.id === "lifecycle" ? `<div class="lc-sim"></div>` : "") +
           `</figure>`

@@ -5,6 +5,7 @@ window.STUDY = {
     /* ───────────── 1. 프로젝트 구조 ───────────── */
     {
       id: "t1",
+      short: "구조·Manifest",
       title: "프로젝트 구조 · Manifest · 레이아웃 기본",
       source: "수업자료 1 · p.56~62",
       blocks: [
@@ -124,6 +125,7 @@ window.STUDY = {
     /* ───────────── 2. 라이프사이클 ───────────── */
     {
       id: "t2",
+      short: "생명주기",
       title: "액티비티 생명주기 (Lifecycle)",
       source: "수업자료 2 · p.9~11 (상태/저장은 p.7~8, 12~13 참고)",
       blocks: [
@@ -207,6 +209,7 @@ window.STUDY = {
     /* ───────────── 3. 실습2 ───────────── */
     {
       id: "t3",
+      short: "실습2 레이아웃·클릭",
       title: "기능/실습 2 — 레이아웃 구성 기초 · 클릭 이벤트",
       source: "수업자료 2 · p.27~43",
       blocks: [
@@ -351,6 +354,7 @@ window.STUDY = {
     /* ───────────── 4. 실습3 ───────────── */
     {
       id: "t4",
+      short: "실습3 인텐트",
       title: "기능/실습 3 — 액티비티 추가 · 인텐트로 실행",
       source: "수업자료 2 · p.44~57",
       blocks: [
@@ -464,6 +468,7 @@ public void onClick(View v) {
     /* ───────────── 5. 실습4 ───────────── */
     {
       id: "t5",
+      short: "실습4 데이터 전달",
       title: "기능/실습 4 — 액티비티 간 데이터 전달 (putExtra)",
       source: "수업자료 3 · p.2~21",
       blocks: [
@@ -563,6 +568,7 @@ public void onClick(View v) {
     /* ───────────── 6. 실습5 ───────────── */
     {
       id: "t6",
+      short: "실습5 LinearLayout",
       title: "기능/실습 5 — 결과 리턴 개념 · LinearLayout (레이아웃까지)",
       source: "수업자료 3 · p.22~32",
       blocks: [
