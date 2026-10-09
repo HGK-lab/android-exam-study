@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko">
+<html lang="ko" data-theme="light">
 <head>
   <meta charset="utf-8">
   <title>안드로이드 시험 대비 노트</title>
@@ -17,6 +17,8 @@
     .topic h3 { font-size: 13.5pt; margin: 6mm 0 1mm; break-after: avoid; }
     .topic .src { color: var(--muted); font-size: 9.5pt; margin-bottom: 2mm; }
     .codeblock, .tbl-wrap, .tip, .diagram, .qa { break-inside: avoid; }
+    .fig-scroll { overflow: visible; }
+    svg.dg { min-width: 0; max-height: 120mm; }
     pre { font-size: 8.8pt; white-space: pre-wrap; }
     table { font-size: 10pt; }
     .tbl-wrap { overflow: visible; }
@@ -26,12 +28,15 @@
     .qa .pts { margin: 0 0 2mm; padding-left: 5mm; color: var(--muted); font-size: 9.5pt; }
     .qa .model { font-size: 10pt; }
     .pb { break-before: page; }
+    h4 { break-after: avoid; }
+    figcaption { font-size: 9.5pt; }
     .foot { padding: 6mm 0 0; }
   </style>
 </head>
 <body>
   <main id="doc"></main>
   <script src="js/content.js"></script>
+  <script src="js/diagrams.js"></script>
   <script src="js/render.js"></script>
   <script>
     (function () {
@@ -48,7 +53,7 @@
       questions.forEach((q, i) => {
         const tp = topics.find((t) => t.id === q.topic);
         h += `<div class="qa"><div class="qn">Q${i + 1} · ${esc(tp.title.split(" — ")[0].split(" · ")[0])}</div>
-          <div class="qt">${esc(q.q)}</div>
+          <div class="qt">${esc(q.q)}</div>${q.code ? `<pre class="q-code"><code>${esc(q.code)}</code></pre>` : ""}
           <ul class="pts">${q.points.map((p) => `<li>${esc(p)}</li>`).join("")}</ul>
           <div class="model">${esc(q.answer)}</div></div>`;
       });

@@ -58,6 +58,86 @@
     });
   });
 
+  /* ── 생명주기 시뮬레이터: 흐름도의 data-fn 노드를 호출 순서대로 켠다 ── */
+  function setupSim() {
+    const host = $(".lc-sim");
+    if (!host) return;
+    const svg = host.closest("figure").querySelector("svg.lc");
+    const STATES = {
+      none: "실행 전",
+      running: "활성(running) — 맨 앞에 보이고 입력 가능",
+      paused: "중지(paused) — 일부 보이지만 입력 불가",
+      stopped: "정지(stopped) — 안 보이지만 상태는 메모리에 남음",
+      destroyed: "소멸 — 다시 실행하면 onCreate부터",
+      killed: "프로세스 종료됨 — 돌아오면 onCreate부터 다시",
+    };
+    const NODE = { none: "launched", running: "running", destroyed: "destroyed", killed: "killed" };
+    const ACTIONS = [
+      { label: "앱 실행", from: ["none", "destroyed"], calls: () => ["onCreate", "onStart", "onResume"], to: "running" },
+      { label: "팝업이 일부를 가림 [보충]", from: ["running"], calls: () => ["onPause"], to: "paused" },
+      { label: "팝업 닫기", from: ["paused"], calls: () => ["onResume"], to: "running" },
+      { label: "홈 버튼", from: ["running"], calls: () => ["onPause", "onStop"], to: "stopped" },
+      {
+        label: "앱으로 돌아오기",
+        from: ["stopped", "killed"],
+        calls: (s) => (s === "killed" ? ["onCreate", "onStart", "onResume"] : ["onRestart", "onStart", "onResume"]),
+        to: "running",
+      },
+      { label: "메모리 부족으로 종료", from: ["stopped"], calls: () => [], to: "killed" },
+      { label: "뒤로 가기 (finish)", from: ["running"], calls: () => ["onPause", "onStop", "onDestroy"], to: "destroyed" },
+    ];
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let cur = "none";
+    let timers = [];
+
+    host.innerHTML = `
+      <div class="sim-head"><b>직접 눌러 보기</b><span class="sim-state"></span></div>
+      <div class="sim-btns">${ACTIONS.map((a, i) => `<button type="button" class="chip" data-sim="${i}">${a.label}</button>`).join("")}
+        <button type="button" class="chip" data-sim="reset">처음부터</button></div>
+      <div class="sim-log" aria-live="polite"></div>`;
+
+    function paint() {
+      $(".sim-state", host).textContent = "현재 상태: " + STATES[cur];
+      $$("[data-sim]", host).forEach((b) => {
+        if (b.dataset.sim !== "reset") b.disabled = !ACTIONS[b.dataset.sim].from.includes(cur);
+      });
+      $$("[data-fn]", svg).forEach((g) => g.classList.toggle("now", g.dataset.fn === NODE[cur]));
+    }
+    function run(i) {
+      timers.forEach(clearTimeout);
+      timers = [];
+      const a = ACTIONS[i];
+      const calls = a.calls(cur);
+      $$("[data-fn]", svg).forEach((g) => g.classList.remove("lit"));
+      const log = $(".sim-log", host);
+      log.innerHTML = `<span class="sim-act">${esc(a.label)}</span> ` + (calls.length ? "" : `<span class="sim-none">콜백 없이 프로세스가 제거될 수 있음</span>`);
+      cur = a.to;
+      paint();
+      calls.forEach((fn, k) => {
+        const step = () => {
+          const g = $(`[data-fn="${fn}"]`, svg);
+          if (g) g.classList.add("lit");
+          log.insertAdjacentHTML("beforeend", `${k ? "→ " : ""}<code>${fn}()</code> `);
+        };
+        reduce ? step() : timers.push(setTimeout(step, 450 * (k + 1)));
+      });
+    }
+    host.addEventListener("click", (e) => {
+      const b = e.target.closest("[data-sim]");
+      if (!b) return;
+      if (b.dataset.sim === "reset") {
+        timers.forEach(clearTimeout);
+        cur = "none";
+        $$("[data-fn]", svg).forEach((g) => g.classList.remove("lit"));
+        $(".sim-log", host).innerHTML = "";
+        paint();
+        return;
+      }
+      run(Number(b.dataset.sim));
+    });
+    paint();
+  }
+
   /* ── 서술형 ── */
   const view = { topic: "all", filter: "all", order: questions.map((q) => q.id) };
   const qById = Object.fromEntries(questions.map((q) => [q.id, q]));
@@ -109,6 +189,7 @@
       <article class="card q" data-id="${id}">
         <div class="q-head"><span class="q-num">Q${n} · ${esc(topicTitle(q.topic).split(" — ")[0].split(" · ")[0])}</span><span class="badge-slot">${badge(id)}</span></div>
         <div class="q-text">${esc(q.q)}</div>
+        ${q.code ? `<pre class="q-code"><code>${esc(q.code)}</code></pre>` : ""}
         <textarea placeholder="여기에 내 답안을 직접 써 보세요 (이 브라우저에만 저장돼요)" data-draft="${id}">${esc(state.drafts[id] || "")}</textarea>
         <div class="q-actions">
           <button class="btn primary" data-act="toggle">${open ? "모범답안 숨기기" : "모범답안 보기"}</button>
@@ -196,6 +277,7 @@
 
   /* ── 시작 ── */
   renderNotes();
+  setupSim();
   fillTopicSelect();
   renderQuestions();
   showTab(["notes", "quiz", "cheat"].includes(state.tab) ? state.tab : "notes");
