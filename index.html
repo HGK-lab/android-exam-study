@@ -35,6 +35,10 @@
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16zM14 6l4 4"/></svg>
           <span>서술형 연습</span>
         </button>
+        <button class="tab" role="tab" data-tab="final" aria-selected="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11l3 3L21 5M20 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <span>핵심 정리</span>
+        </button>
         <button class="tab" role="tab" data-tab="cheat" aria-selected="false">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h12M8 12h12M8 18h12M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg>
           <span>치트시트</span>
@@ -73,6 +77,17 @@
       </div>
       <div id="q-list"></div>
       <div class="bar" style="justify-content:flex-end"><button class="chip" id="reset" type="button">기록 초기화</button></div>
+    </section>
+
+    <section class="panel" id="panel-final" hidden>
+      <p class="final-note">시험 직전에 훑어보도록 32문항의 <b>채점 포인트</b>만 모았어요. 서술형 연습에서 표시한 상태로 골라 볼 수 있어요.</p>
+      <div class="bar">
+        <button class="chip" data-ffilter="all" aria-pressed="true" type="button">전체</button>
+        <button class="chip" data-ffilter="bad" aria-pressed="false" type="button">헷갈림만</button>
+        <button class="chip" data-ffilter="notok" aria-pressed="false" type="button">이해함 빼고</button>
+        <span class="stats" id="final-stats"></span>
+      </div>
+      <div id="final-list"></div>
     </section>
 
     <section class="panel" id="panel-cheat" hidden>

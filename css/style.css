@@ -263,6 +263,18 @@ textarea { width: 100%; min-height: 96px; padding: 10px; resize: vertical; line-
 .empty { text-align: center; color: var(--muted); padding: 40px 0; }
 
 .cheat { margin-bottom: 14px; }
+
+/* 핵심 정리 */
+.final-note { margin: 0 0 10px; color: var(--muted); font-size: 14px; }
+.final { padding: 12px 16px 4px; }
+.final-h { margin: 0 0 4px; }
+.fq { padding: 10px 0; border-top: 1px solid var(--line); }
+.final-h + .fq { border-top: 0; padding-top: 4px; }
+.fq-h { display: flex; gap: 8px; align-items: baseline; }
+.fq-h .q-num { flex: none; font-weight: 700; color: var(--brand); }
+.fq-q { flex: 1; font-weight: 600; font-size: 14.5px; }
+.fq ul { margin: 6px 0 0; padding-left: 20px; font-size: 14.5px; }
+.fq li { margin: 3px 0; }
 .foot { max-width: 880px; margin: 0 auto; padding: 0 16px 40px; color: var(--muted); font-size: 12.5px; }
 
 /* 주제 바로가기 */

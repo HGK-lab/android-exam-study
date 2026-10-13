@@ -39,6 +39,7 @@
     $$(".panel").forEach((p) => (p.hidden = p.id !== "panel-" + name));
     window.scrollTo({ top: 0 });
     if (name === "notes") markTopic();
+    if (name === "final") renderFinal();
   }
   $$(".tab").forEach((t) => t.addEventListener("click", () => showTab(t.dataset.tab)));
 
@@ -390,6 +391,42 @@
     renderQuestions();
   });
 
+  /* ── 핵심 정리: 채점 포인트만. 상태는 서술형 탭에서 매긴 것을 그대로 씀 ── */
+  let ffilter = "all";
+  function renderFinal() {
+    const pick = (q) => {
+      const s = state.status[q.id];
+      return ffilter === "bad" ? s === "bad" : ffilter === "notok" ? s !== "ok" : true;
+    };
+    const shown = questions.filter(pick);
+    $("#final-stats").textContent = `${shown.length} / ${questions.length}문항`;
+    if (!shown.length) {
+      $("#final-list").innerHTML = `<div class="empty">조건에 맞는 문제가 없어요.</div>`;
+      return;
+    }
+    $("#final-list").innerHTML = topics
+      .map((t, ti) => {
+        const qs = shown.filter((q) => q.topic === t.id);
+        if (!qs.length) return "";
+        return `<section class="card final"><h3 class="final-h">${ti + 1}. ${esc(t.short)}</h3>${qs
+          .map(
+            (q) => `<div class="fq">
+            <div class="fq-h"><span class="q-num">Q${questions.indexOf(q) + 1}</span><span class="fq-q">${esc(q.q)}</span>${badge(q.id)}</div>
+            <ul>${q.points.map((p) => `<li>${esc(p)}</li>`).join("")}</ul>
+          </div>`
+          )
+          .join("")}</section>`;
+      })
+      .join("");
+  }
+  $$("[data-ffilter]").forEach((b) =>
+    b.addEventListener("click", () => {
+      ffilter = b.dataset.ffilter;
+      $$("[data-ffilter]").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+      renderFinal();
+    })
+  );
+
   /* ── 치트시트 ── */
   $("#cheat-list").innerHTML = cheatsheet();
 
@@ -404,5 +441,5 @@
   fillTopicSelect();
   renderQuestions();
   setTopH();
-  showTab(["notes", "quiz", "cheat"].includes(state.tab) ? state.tab : "notes");
+  showTab(["notes", "quiz", "final", "cheat"].includes(state.tab) ? state.tab : "notes");
 })();
