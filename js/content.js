@@ -1,6 +1,43 @@
 /* 시험 범위 학습 내용 (직접 정리한 요약 — 원본 강의자료 아님)
    [보충] 표시는 강의자료에 없지만 이해를 돕기 위해 덧붙인 내용 */
 window.STUDY = {
+  scope: {
+    title: "시험 범위 · 문제 유형",
+    source: "10월 10일 수정 공지 기준 · 모두 주관식 서술형",
+    blocks: [
+      {
+        t: "table",
+        head: ["자료", "시험 범위", "노트"],
+        rows: [
+          ["수업자료 1", "p.56 <b>프로젝트 구조 설명</b>부터 ~ p.62", "1"],
+          ["수업자료 2", "p.9~11 <b>액티비티 라이프사이클</b> (같은 단원 p.7~13 포함해 정리), <b>기능/실습 2</b>(p.27~43), <b>기능/실습 3</b>(p.44~57)", "2 · 3 · 4"],
+          ["수업자료 3", "<b>기능/실습 4</b>(p.3~21), <b>기능/실습 5</b>는 레이아웃까지(p.22~32)", "5 · 6"],
+        ],
+      },
+      { t: "h", text: "범위에서 빠지는 부분" },
+      {
+        t: "list",
+        items: [
+          "1장 안드로이드 소개, 설치, 에뮬레이터 생성, 설정 (수업자료 1 p.1~55)",
+          "2장 액티비티/리소스 (태스크·액티비티 스택 p.4~6, 리소스 p.14~26) — <b>액티비티 생명주기는 포함</b>",
+          "3장 기능/실습 5의 데이터 전달(리턴 처리) 기능 코드 (ActivityResultLauncher·registerForActivityResult·setResult, p.33~39)",
+        ],
+      },
+      { t: "h", text: "문제 유형" },
+      {
+        t: "list",
+        items: [
+          "모든 문제는 <b>주관식 서술형</b>",
+          "<b>클래스, 메소드, 레이아웃, 부분 코드 설명</b>, 프로그램을 수행하는 데 알아야 하는 내용 중심",
+          "<b>전체 코드 설명 / 코드 작성 문제는 출제하지 않음</b>",
+        ],
+      },
+      {
+        t: "tip",
+        html: "<b>생명주기 범위</b> — 공지에는 p.9~11로 적혀 있지만 제외 항목에서 “생명주기 부분은 포함”이라고 했으므로, 같은 단원인 p.7~13(3가지 상태, 상태 저장)까지 범위로 보고 정리했다.",
+      },
+    ],
+  },
   topics: [
     /* ───────────── 1. 프로젝트 구조 ───────────── */
     {
@@ -127,7 +164,7 @@ window.STUDY = {
       id: "t2",
       short: "생명주기",
       title: "액티비티 생명주기 (Lifecycle)",
-      source: "수업자료 2 · p.9~11 (상태/저장은 p.7~8, 12~13 참고)",
+      source: "수업자료 2 · p.7~13 (액티비티 상태와 생명주기)",
       blocks: [
         { t: "h", text: "왜 생명주기가 있나" },
         {
@@ -138,7 +175,7 @@ window.STUDY = {
             "액티비티는 <b>액티비티 스택</b>으로 관리되며, 사용자와 상호작용하는 단위(보통 전체 화면)",
           ],
         },
-        { t: "h", text: "액티비티의 3가지 상태 (p.8 참고)" },
+        { t: "h", text: "액티비티의 3가지 상태 (p.8)" },
         {
           t: "table",
           head: ["상태", "특징"],
@@ -188,7 +225,7 @@ window.STUDY = {
           id: "ab",
           cap: "[보충] 두 액티비티의 호출이 섞이는 순서. A의 onPause가 끝나야 B가 시작되고, A의 onStop은 B가 화면에 완전히 뜬 뒤에 온다. 돌아올 때도 B의 onStop·onDestroy는 A가 다시 보인 다음에 호출된다.",
         },
-        { t: "h", text: "상태 저장하기 (p.12~13, 범위 경계 — 참고)" },
+        { t: "h", text: "상태 저장하기 (p.12~13)" },
         {
           t: "list",
           items: [
@@ -735,7 +772,7 @@ public void onClick(View v) {
     { id: "q13", topic: "t2", q: "onStart()와 onResume()의 차이를 설명하시오.",
       points: ["onStart: 사용자에게 보여줄 준비가 되었을 때", "onResume: 실제로 보여지고 입력 처리 가능, 스택 최상위"],
       answer: "onStart()는 액티비티가 초기화를 마치고 사용자에게 보여줄 준비가 되었을 때 호출되고, onResume()은 액티비티가 실제로 사용자에게 보여지며 사용자의 입력을 처리할 수 있는, 액티비티 스택 최상위 상태가 될 때 호출된다." },
-    { id: "q14", topic: "t2", q: "[참고] onSaveInstanceState()와 onRestoreInstanceState()의 역할과, 이 두 메소드가 생명주기 메소드가 아니라는 말의 의미를 설명하시오.",
+    { id: "q14", topic: "t2", q: "onSaveInstanceState()와 onRestoreInstanceState()의 역할과, 이 두 메소드가 생명주기 메소드가 아니라는 말의 의미를 설명하시오.",
       points: ["메모리 부족으로 프로세스가 제거될 수 있음", "제거 전 Bundle에 상태 저장 / 이후 복원", "항상 호출되지 않음 → 개발자가 override해서 구현"],
       answer: "onPause나 onStop 이후 메모리가 부족하면 프로세스가 제거될 수 있어서, onSaveInstanceState()는 제거되기 전에 Bundle 객체에 액티비티의 동적(UI) 상태를 저장하고, onRestoreInstanceState()는 onCreate/onStart 이후 저장된 상태를 복원한다. 이 둘은 생명주기 메소드가 아니기 때문에 항상 호출되지는 않으며, 개발자가 해당 메소드를 재정의해 구현해야 한다." },
 
@@ -758,9 +795,9 @@ public void onClick(View v) {
       answer: "button01(Clear)을 누르면 editText01.setText(\"\")가 실행되어 입력한 텍스트가 지워진다. button02(Close)를 누르면 finish()가 실행되어 현재 액티비티가 종료된다. 두 버튼이 같은 리스너를 쓰므로 v.getId()로 클릭된 버튼을 구분한다." },
 
     /* t4 */
-    { id: "q20", topic: "t4", q: "버튼을 눌러 새로운 액티비티(SecondActivity)를 실행하는 기능을 구현하는 전체 과정을 서술하시오.",
-      points: ["액티비티 + 레이아웃 생성 (Empty Views Activity)", "Manifest에 액티비티 등록(자동)", "각 액티비티 레이아웃 작성 (실행 버튼 / 종료 버튼)", "Intent 생성 + startActivity()", "종료는 finish()"],
-      answer: "먼저 New → Activity → Empty Views Activity로 SecondActivity와 activity_second 레이아웃을 만든다(Java Class로 만들지 않는다). 이때 AndroidManifest.xml에 액티비티가 자동 등록된다. 다음으로 activity_main에는 새 액티비티를 실행할 버튼을, activity_second에는 종료 버튼을 배치한다. MainActivity의 onClick에서 Intent intent = new Intent(MainActivity.this, SecondActivity.class); startActivity(intent);로 실행하고, SecondActivity에서는 버튼 클릭 시 finish()로 종료한다." },
+    { id: "q20", topic: "t4", q: "실습 3에서 버튼으로 SecondActivity를 열고 닫을 때 쓰이는 ① AndroidManifest.xml 등록 ② Intent 객체 ③ startActivity() ④ finish()가 각각 하는 일을 설명하시오.",
+      points: ["Manifest: 액티비티 등록 — 등록 안 된 액티비티는 실행 불가 (Activity 메뉴로 추가하면 자동 등록)", "Intent: 실행할 대상(현재 액티비티 → SecondActivity.class)을 담는 객체", "startActivity(): Intent로 다른 액티비티 실행", "finish(): 현재 액티비티 종료 → 이전 화면(Main)으로 복귀"],
+      answer: "AndroidManifest.xml은 앱의 구성 요소를 기술하는 파일로, 액티비티를 실행하려면 여기에 등록되어 있어야 한다(New → Activity → Empty Views Activity로 추가하면 자동 등록된다). Intent는 다른 액티비티를 실행하기 위한 객체로, new Intent(MainActivity.this, SecondActivity.class)처럼 현재 액티비티와 실행할 대상 클래스를 지정한다. startActivity()는 이 Intent를 받아 SecondActivity를 실행한다. finish()는 현재 액티비티를 종료하는 메소드로, SecondActivity에서 호출하면 이전 화면인 MainActivity로 돌아간다." },
     { id: "q21", topic: "t4", q: "Intent의 역할을 설명하고, new Intent(MainActivity.this, SecondActivity.class)의 두 인자의 의미를 쓰시오.",
       points: ["인텐트를 이용해 다른 액티비티를 실행", "첫째: 현재 액티비티(실행하는 쪽)", "둘째: 실행할 대상 액티비티 클래스", "startActivity(intent)로 실제 실행"],
       answer: "Intent는 다른 액티비티를 실행하기 위해 사용하는 객체로, startActivity(Intent)에 넘기면 해당 액티비티가 실행된다. new Intent(MainActivity.this, SecondActivity.class)에서 첫 번째 인자는 현재(실행을 요청하는) 액티비티이고, 두 번째 인자는 실행할 대상 액티비티의 클래스이다." },
@@ -772,9 +809,9 @@ public void onClick(View v) {
       answer: "SecondActivity에는 리스너에 등록된 버튼이 1개뿐이므로 onClick()이 호출되면 그 버튼이 눌린 것이 확실해 대상을 구분할 필요가 없고, 곧바로 finish()를 호출하면 된다." },
 
     /* t5 */
-    { id: "q24", topic: "t5", q: "액티비티를 실행하면서 다른 액티비티로 데이터를 전달하고 받는 방법을 코드와 함께 설명하시오.",
-      points: ["보내기: Intent.putExtra(키, 값) 후 startActivity", "받기: getIntent()로 Intent 획득", "꺼내기: getStringExtra(키)", "(이름(키), 값) 쌍으로 구성"],
-      answer: "보내는 쪽에서 Intent intent = new Intent(MainActivity.this, SecondActivity.class); intent.putExtra(\"key01\", \"value\"); startActivity(intent);처럼 putExtra()로 (이름(키), 값) 쌍의 데이터를 Intent에 기록해 실행한다. 받는 쪽에서는 Intent data = getIntent();로 실행시킨 인텐트를 얻고, String s = data.getStringExtra(\"key01\");처럼 키 값으로 데이터를 찾아 확인한 뒤 TextView.setText(s) 등으로 출력한다." },
+    { id: "q24", topic: "t5", q: "액티비티 간 데이터 전달(실습 4)에 쓰이는 putExtra(), getIntent(), getStringExtra() 메소드가 각각 하는 일을 설명하시오.",
+      points: ["putExtra(키, 값): 보내는 쪽에서 Intent에 전달할 데이터 기록, (이름(키), 값) 쌍", "getIntent(): 받는 쪽에서 자신을 실행시킨 Intent를 가져옴", "getStringExtra(키): 그 Intent에서 이름(키)으로 문자열 데이터를 찾아 꺼냄"],
+      answer: "putExtra()는 보내는 쪽(MainActivity)에서 Intent 객체에 전달할 데이터를 기록하는 메소드로, 데이터는 (이름(키), 값) 쌍으로 구성된다. 데이터를 담은 Intent를 startActivity()로 넘기면 대상 액티비티가 실행되면서 데이터도 함께 전달된다. getIntent()는 받는 쪽(SecondActivity)에서 자신을 실행시킨 Intent를 가져오는 메소드이고, getStringExtra()는 그 Intent에서 보낼 때 쓴 이름(키) 값으로 넘어온 문자열 데이터를 찾아 꺼내는 메소드이다. 꺼낸 값은 setText()로 TextView에 출력한다." },
     { id: "q25", topic: "t5", q: "여러 개의 데이터를 전달할 때 각 데이터를 어떻게 구분하는지 설명하시오.",
       points: ["putExtra의 이름(키)으로 구분", "받을 때 같은 키로 getXxxExtra", "키는 서로 달라야 함"],
       answer: "putExtra()는 (이름(키), 값) 형태로 데이터를 저장하므로 서로 다른 키 이름을 붙여 여러 데이터를 구분한다. 받는 쪽에서는 같은 키 이름으로 getStringExtra(키) 등을 호출해 원하는 데이터를 찾는다." },

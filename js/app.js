@@ -44,6 +44,12 @@
 
   /* ── 요약 노트 ── */
   function renderNotes() {
+    const sc = window.STUDY.scope;
+    $("#scope").innerHTML = `
+      <details class="card" open>
+        <summary><div><h3>${sc.title}</h3><div class="src">${sc.source}</div></div><span class="chev">▶</span></summary>
+        <div class="card-body">${topicBody(sc)}</div>
+      </details>`;
     $("#notes-list").innerHTML = topics
       .map(
         (t, i) => `

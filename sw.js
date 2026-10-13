@@ -1,6 +1,6 @@
 /* 오프라인 캐시: 처음 열 때 앱 파일을 저장해 두고, 이후에는 저장본을 바로 보여 주면서 뒤에서 새 버전을 받아 둔다.
    파일 목록을 바꾸면 CACHE 이름의 숫자를 올릴 것 */
-const CACHE = "android-exam-study-v2";
+const CACHE = "android-exam-study-v3";
 const ASSETS = [
   "./",
   "index.html",
