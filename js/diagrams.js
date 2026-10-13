@@ -175,42 +175,6 @@
     );
   };
 
-  /* ── 4. A→B 실행·복귀 호출 순서 ── */
-  D.ab = (m) => {
-    const n = m ? "abn" : "ab";
-    const [AX, BX, W, VW] = m ? [95, 265, 116, 360] : [160, 480, 136, 640];
-    const MID = VW / 2;
-    const steps = [
-      ["A", "onPause", 84], ["B", "onCreate", 114], ["B", "onStart", 144], ["B", "onResume", 174], ["A", "onStop", 204],
-      ["B", "onPause", 264], ["A", "onRestart", 294], ["A", "onStart", 324], ["A", "onResume", 354], ["B", "onStop", 384], ["B", "onDestroy", 414],
-    ];
-    const HW = m ? 75 : 80;
-    let body =
-      r(AX - HW, 12, HW * 2, 30, "d-box-a") + t(AX, 32, "A (MainActivity)", "d-t d-b", "middle") +
-      r(BX - HW, 12, HW * 2, 30, "d-box-b") + t(BX, 32, "B (SecondActivity)", "d-t d-b", "middle") +
-      `<path d="M${AX} 42 V430 M${BX} 42 V430" class="d-line d-dash"/>` +
-      t(MID, 62, "A에서 B 실행 (startActivity)", "d-s d-b", "middle") +
-      `<path d="M${m ? 10 : 20} 230 H${VW - (m ? 10 : 20)}" class="d-line d-dash"/>` +
-      t(MID, 246, "B에서 뒤로 가기 (finish)", "d-s d-b", "middle");
-    steps.forEach(([lane, fn, y], i) => {
-      const x = lane === "A" ? AX : BX;
-      if (i > 0 && i !== 5) {
-        const [pl, , py] = steps[i - 1];
-        const px = pl === "A" ? AX : BX;
-        body += pl === lane
-          ? arrow(n, `M${x} ${py + 11} V${y - 12}`)
-          : arrow(n, `M${px + (pl === "A" ? W / 2 : -W / 2)} ${py} L${x + (lane === "A" ? W / 2 : -W / 2)} ${y}`);
-      }
-      body += r(x - W / 2, y - 11, W, 22, lane === "A" ? "d-box-a" : "d-box-b", 4) + t(x, y + 4, `${i + 1}. ${fn}()`, "d-m", "middle");
-    });
-    if (!m) {
-      body +=
-        t(552, 178, "B가 보임", "d-s d-acc-t") + t(84, 208, "A 가려짐", "d-s", "end") +
-        t(84, 358, "A 다시 보임", "d-s d-acc-t", "end") + t(552, 418, "B 소멸", "d-s");
-    }
-    return svg(n, VW, 436, "A에서 B를 실행하면 A.onPause, B.onCreate, B.onStart, B.onResume, A.onStop 순서로, B에서 뒤로 가면 B.onPause, A.onRestart, A.onStart, A.onResume, B.onStop, B.onDestroy 순서로 호출된다", body);
-  };
-
   /* ── 5. 실습 2 화면과 제약 ── */
   D.ex2 = (m) => {
     const n = m ? "ex2n" : "ex2";
@@ -365,45 +329,6 @@
     );
   };
 
-  /* ── 9. 한 방향(실습 4) vs 왕복(실습 5) ── */
-  D.ret = (m) => {
-    const n = m ? "retn" : "ret";
-    const label = "실습 4는 MainActivity가 SecondActivity로 값을 보내기만 하고, 실습 5는 SecondActivity가 종료되면서 값을 MainActivity로 되돌려 주는 왕복 구조";
-    if (!m) {
-      const node = (x, y, h, cls, title, sub) =>
-        r(x, y, 160, h, cls) + t(x + 80, y + 22, title, "d-t d-b", "middle") + lines(x + 80, y + 40, sub, "d-s", "middle", 15);
-      return svg(
-        n, 700, 300, label,
-        t(20, 24, "실습 4 · 한 방향", "d-t d-b") +
-          node(60, 36, 60, "d-box-a", "MainActivity", ["putExtra로 값 담음"]) +
-          node(480, 36, 60, "d-box-b", "SecondActivity", ["getStringExtra로 받음"]) +
-          arrow(n, "M220 56 H476", "a") + t(348, 48, "값을 보내며 실행", "d-s d-acc-t", "middle") +
-          arrow(n, "M478 82 H224", "m", "d-dash") + t(348, 104, "finish() — 돌려주는 값 없음", "d-s", "middle") +
-          t(20, 146, "실습 5 · 왕복 (결과 리턴)", "d-t d-b") +
-          node(60, 160, 74, "d-box-a", "MainActivity", ["EditText: data sample", "Result: ← 여기에 표시"]) +
-          node(480, 160, 74, "d-box-b", "SecondActivity", ["EditText에서 수정", "data sample - return data"]) +
-          arrow(n, "M220 180 H476", "a") + t(348, 172, "① 입력값을 보내며 실행", "d-s d-acc-t", "middle") +
-          arrow(n, "M478 216 H224", "a") + t(348, 236, "② 종료하면서 결과를 돌려줌", "d-s d-acc-t", "middle") +
-          t(348, 284, "돌려받는 코드(ActivityResultLauncher · setResult)는 시험 범위 밖", "d-s", "middle")
-      );
-    }
-    const node = (y, h, cls, title, sub) => r(20, y, 300, h, cls) + t(32, y + 19, title, "d-t d-b") + lines(32, y + 36, sub, "d-s", "start", 15);
-    return svg(
-      n, 360, 430, label,
-      t(20, 20, "실습 4 · 한 방향", "d-t d-b") +
-        node(32, 46, "d-box-a", "MainActivity", ["putExtra로 값 담음"]) +
-        arrow(n, "M70 80 V112", "a") + t(78, 100, "값을 보내며 실행", "d-s d-acc-t") +
-        arrow(n, "M250 112 V80", "m", "d-dash") + lines(258, 92, ["finish()", "돌려주는 값 없음"], "d-s", "start", 14) +
-        node(114, 46, "d-box-b", "SecondActivity", ["getStringExtra로 받음"]) +
-        t(20, 194, "실습 5 · 왕복 (결과 리턴)", "d-t d-b") +
-        node(206, 62, "d-box-a", "MainActivity", ["EditText: data sample", "Result 영역에 결과 표시"]) +
-        arrow(n, "M70 270 V310", "a") + t(78, 294, "① 입력값을 보내며 실행", "d-s d-acc-t") +
-        arrow(n, "M250 310 V270", "a") + lines(258, 286, ["② 종료하며", "결과를 돌려줌"], "d-s d-acc-t", "start", 14) +
-        node(312, 62, "d-box-b", "SecondActivity", ["EditText에서 수정", "data sample - return data"]) +
-        lines(20, 400, ["돌려받는 코드(ActivityResultLauncher · setResult)는", "시험 범위 밖"], "d-s", "start", 15)
-    );
-  };
-
   /* ── 10. LinearLayout 방향 + 실습 5 중첩 구조 ── */
   D.linear = (m) => {
     const n = m ? "linearn" : "linear";
@@ -421,7 +346,7 @@
         r(ox + 16, oy + 54, 144, 32, "d-lin2", 3) + btn(ox + 37, oy + 59, 48, "start") + btn(ox + 93, oy + 59, 48, "close") +
         t(ox + 88, oy + 106, "Result :", "d-t d-b", "middle") +
         r(ox + 16, oy + 114, 144, 182, "d-gray", 2) +
-        tag(35, 1, "EditText") + tag(70, 2, "가로 LinearLayout", "start · close 가운데") +
+        tag(35, 1, "EditText") + tag(70, 2, "가로 LinearLayout", "start · close") +
         tag(102, 3, "TextView", '"Result :" 24sp 굵게') + tag(206, 4, "TextView (회색)", "match_parent → 나머지") +
         t(ox + 88, oy + 330, "바깥 = 세로 LinearLayout (padding 8dp)", "d-s d-acc-t", "middle");
     };
@@ -434,23 +359,17 @@
           arrow(n, "M150 54 V170") + t(80, 200, '"vertical"', "d-m", "middle") +
           r(180, 40, 210, 56, "d-frame", 6) + kid(190, 50, 58, 36, 1) + kid(256, 50, 58, 36, 2) + kid(322, 50, 58, 36, 3) +
           arrow(n, "M190 106 H380") + t(285, 126, '"horizontal"', "d-m", "middle") +
-          t(180, 230, "[보충] layout_weight 1 : 2", "d-s d-b") +
-          r(180, 240, 210, 44, "d-frame", 6) + kid(186, 246, 64, 32, "weight 1") + kid(256, 246, 128, 32, "weight 2", "d-box-b") +
-          t(285, 302, "남은 공간을 비율대로 나눔", "d-s", "middle") +
           screen(450, 30)
       );
     }
     return svg(
-      n, 360, 604, label,
+      n, 360, 564, label,
       t(20, 22, "orientation", "d-m d-b") +
         r(20, 34, 100, 132, "d-frame", 6) + kid(32, 44, 76, 30, 1) + kid(32, 82, 76, 30, 2) + kid(32, 120, 76, 30, 3) +
         arrow(n, "M128 44 V150") + t(70, 184, '"vertical"', "d-m", "middle") +
         r(140, 34, 190, 50, "d-frame", 6) + kid(150, 44, 52, 30, 1) + kid(210, 44, 52, 30, 2) + kid(270, 44, 52, 30, 3) +
         arrow(n, "M150 96 H322") + t(235, 114, '"horizontal"', "d-m", "middle") +
-        t(140, 140, "[보충] layout_weight 1 : 2", "d-s d-b") +
-        r(140, 148, 190, 40, "d-frame", 6) + kid(146, 154, 58, 28, 1) + kid(210, 154, 114, 28, 2, "d-box-b") +
-        t(235, 204, "남은 공간을 1:2로 나눔", "d-s", "middle") +
-        screen(20, 262)
+        screen(20, 222)
     );
   };
 

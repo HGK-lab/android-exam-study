@@ -122,8 +122,6 @@
     const NODE = { none: "launched", running: "running", destroyed: "destroyed", killed: "killed" };
     const ACTIONS = [
       { label: "앱 실행", from: ["none", "destroyed"], calls: () => ["onCreate", "onStart", "onResume"], to: "running" },
-      { label: "팝업이 일부를 가림 [보충]", from: ["running"], calls: () => ["onPause"], to: "paused" },
-      { label: "팝업 닫기", from: ["paused"], calls: () => ["onResume"], to: "running" },
       { label: "홈 버튼", from: ["running"], calls: () => ["onPause", "onStop"], to: "stopped" },
       {
         label: "앱으로 돌아오기",

@@ -1,5 +1,5 @@
 /* 시험 범위 학습 내용 (직접 정리한 요약 — 원본 강의자료 아님)
-   [보충] 표시는 강의자료에 없지만 이해를 돕기 위해 덧붙인 내용 */
+   [참고] 표시는 공지된 범위 밖이지만 같은 단원이라 함께 정리한 내용 */
 window.STUDY = {
   scope: {
     title: "시험 범위 · 문제 유형",
@@ -10,7 +10,7 @@ window.STUDY = {
         head: ["자료", "시험 범위", "노트"],
         rows: [
           ["수업자료 1", "p.56 <b>프로젝트 구조 설명</b>부터 ~ p.62", "1"],
-          ["수업자료 2", "p.9~11 <b>액티비티 라이프사이클</b> (같은 단원 p.7~13 포함해 정리), <b>기능/실습 2</b>(p.27~43), <b>기능/실습 3</b>(p.44~57)", "2 · 3 · 4"],
+          ["수업자료 2", "p.9~11 <b>액티비티 라이프사이클</b>, <b>기능/실습 2</b>(p.27~43), <b>기능/실습 3</b>(p.44~57)", "2 · 3 · 4"],
           ["수업자료 3", "<b>기능/실습 4</b>(p.3~21), <b>기능/실습 5</b>는 레이아웃까지(p.22~32)", "5 · 6"],
         ],
       },
@@ -34,7 +34,7 @@ window.STUDY = {
       },
       {
         t: "tip",
-        html: "<b>생명주기 범위</b> — 공지에는 p.9~11로 적혀 있지만 제외 항목에서 “생명주기 부분은 포함”이라고 했으므로, 같은 단원인 p.7~13(3가지 상태, 상태 저장)까지 범위로 보고 정리했다.",
+        html: "<b>생명주기 범위</b> — 공지대로 <b>p.9~11</b>만 시험 범위로 본다. 같은 단원의 p.7(개요)·p.8(3가지 상태)·p.12~13(상태 저장)은 노트와 문제에 <b>[참고]</b>로 표시했다.",
       },
     ],
   },
@@ -164,9 +164,9 @@ window.STUDY = {
       id: "t2",
       short: "생명주기",
       title: "액티비티 생명주기 (Lifecycle)",
-      source: "수업자료 2 · p.7~13 (액티비티 상태와 생명주기)",
+      source: "수업자료 2 · p.9~11 (p.7~8, 12~13은 참고)",
       blocks: [
-        { t: "h", text: "왜 생명주기가 있나" },
+        { t: "h", text: "왜 생명주기가 있나 (p.7 참고)" },
         {
           t: "list",
           items: [
@@ -175,7 +175,7 @@ window.STUDY = {
             "액티비티는 <b>액티비티 스택</b>으로 관리되며, 사용자와 상호작용하는 단위(보통 전체 화면)",
           ],
         },
-        { t: "h", text: "액티비티의 3가지 상태 (p.8)" },
+        { t: "h", text: "액티비티의 3가지 상태 (p.8 참고)" },
         {
           t: "table",
           head: ["상태", "특징"],
@@ -214,18 +214,9 @@ window.STUDY = {
             ["홈 버튼으로 나감", "<code>onPause → onStop</code>"],
             ["홈에서 다시 돌아옴", "<code>onRestart → onStart → onResume</code> (onCreate는 호출 <b>안 됨</b>)"],
             ["뒤로 가기 / finish()", "<code>onPause → onStop → onDestroy</code>"],
-            ["A에서 B(전체 화면) 실행 [보충]", "A.onPause → B.onCreate → B.onStart → B.onResume → A.onStop"],
-            ["B에서 뒤로 가기 [보충]", "B.onPause → A.onRestart → A.onStart → A.onResume → B.onStop → B.onDestroy"],
-            ["일부만 가리는 팝업 [보충]", "onPause만 호출 → 닫히면 onResume (onStop 안 됨)"],
-            ["화면 회전 [보충]", "onPause → onStop → onDestroy → onCreate → onStart → onResume (액티비티 재생성)"],
           ],
         },
-        {
-          t: "fig",
-          id: "ab",
-          cap: "[보충] 두 액티비티의 호출이 섞이는 순서. A의 onPause가 끝나야 B가 시작되고, A의 onStop은 B가 화면에 완전히 뜬 뒤에 온다. 돌아올 때도 B의 onStop·onDestroy는 A가 다시 보인 다음에 호출된다.",
-        },
-        { t: "h", text: "상태 저장하기 (p.12~13)" },
+        { t: "h", text: "상태 저장하기 (p.12~13 참고)" },
         {
           t: "list",
           items: [
@@ -606,27 +597,19 @@ public void onClick(View v) {
     {
       id: "t6",
       short: "실습5 LinearLayout",
-      title: "기능/실습 5 — 결과 리턴 개념 · LinearLayout (레이아웃까지)",
+      title: "기능/실습 5 — LinearLayout (레이아웃까지)",
       source: "수업자료 3 · p.22~32",
       blocks: [
         {
           t: "tip",
-          html: "<b>범위 안내</b> — 실습 5는 <b>레이아웃까지</b>가 시험 범위. 결과 리턴의 <b>코드(p.33~39, ActivityResultLauncher·setResult)</b>는 범위 밖이라 이 앱에서도 개념만 다룬다.",
+          html: "<b>범위 안내</b> — 실습 5는 <b>레이아웃까지</b>가 시험 범위라 이 앱에서는 <b>LinearLayout과 레이아웃 구성</b>만 다룬다. 결과 리턴 기능(p.33~39)은 범위 밖.",
         },
-        { t: "h", text: "목적 (p.23)" },
+        { t: "h", text: "레이아웃 목적 (p.23)" },
         {
           t: "list",
           items: [
-            "액티비티에서 실행한 <b>또 다른 액티비티로부터 결과를 되돌려 받아 처리</b>하는 과정 습득",
-            "새 액티비티를 실행하면서 데이터를 전달한 후, <b>실행된 액티비티로부터 다시 데이터(결과)를 전달받아야 하는 경우</b>에 사용",
-            "실행된 액티비티가 종료되면, 종료한 액티비티가 가진 값을 <b>실행했던 액티비티로 되돌려 주는</b> 과정",
-            "내용: 처리 결과를 돌려받기 위한 데이터 전달 과정, 돌아온 결과 처리 과정, <b>레이아웃은 LinearLayout</b>으로 구성 (LinearLayout 기초 사용법 습득)",
+            "레이아웃 부분은 <b>LinearLayout</b>으로 구성 — LinearLayout에 대한 기초 사용법 습득",
           ],
-        },
-        {
-          t: "fig",
-          id: "ret",
-          cap: "실습 4와 실습 5의 차이. 실습 5는 실행된 액티비티가 끝날 때 가진 값을 실행했던 액티비티로 되돌려 준다. 자료의 실행 화면에서는 Main에 입력한 “data sample”이 Second에서 “data sample - return data”로 수정되어 Main의 Result 영역에 표시된다.",
         },
         { t: "h", text: "준비 · 레이아웃 구성 (p.26~28, 32)" },
         {
@@ -705,7 +688,6 @@ public void onClick(View v) {
           notes: [
             ["orientation=\"vertical\"", "바깥 레이아웃: 자식들을 <b>세로(위→아래)</b>로 나열"],
             ["orientation=\"horizontal\"", "안쪽 레이아웃: 버튼 2개를 <b>가로</b>로 나열 — 자료의 “배치 방향의 변경이 필요한 경우” 예"],
-            ["gravity=\"center\"", "[보충] 안쪽 내용(버튼들)을 <b>가운데 정렬</b>"],
             ["weightSum=\"1\"", "LinearLayout 설명을 위해 적어 둔 것으로 이 예제에서는 사용하지 않음"],
             ["textView02 match_parent", "마지막 TextView가 <b>남은 아래 공간</b>을 채움 → 돌려받은 결과가 표시되는 회색 영역"],
             ["padding=\"8dp\"", "레이아웃 안쪽 여백"],
@@ -719,10 +701,6 @@ public void onClick(View v) {
             ["핵심 속성", "<code>layout_constraint…</code>", "<code>orientation</code>, <code>layout_weight</code>"],
             ["특징", "Design Tool 중심, 비율 구성·빠른 배치", "구조 단순, 쌓기식 UI에 적합"],
           ],
-        },
-        {
-          t: "tip",
-          html: "<b>[보충] layout_weight</b> — 자식 View가 남은 공간을 <b>비율</b>로 나눠 갖게 하는 속성. 보통 해당 방향 크기를 <code>0dp</code>로 두고 weight를 줌. 자료에는 속성 이름만 나오므로 “공간 분배 비율” 정도로 설명할 수 있으면 충분.",
         },
       ],
     },
@@ -751,7 +729,7 @@ public void onClick(View v) {
       answer: "onCreate()는 액티비티가 생성되면서 호출되는 메소드다. super.onCreate()는 상위 클래스의 onCreate()를 호출해 정의된 기본 작업을 수행하게 하고, setContentView(R.layout.activity_main)은 액티비티의 화면을 구성하는 역할로 화면에 표시할 뷰를 설정하며 이때 res/layout의 activity_main 리소스를 사용한다." },
 
     /* t2 */
-    { id: "q7", topic: "t2", q: "액티비티의 3가지 상태(활성/중지/정지)를 각각 설명하시오.",
+    { id: "q7", topic: "t2", q: "[참고] 액티비티의 3가지 상태(활성/중지/정지)를 각각 설명하시오.",
       points: ["활성(running): 전경, 초점, 상호작용 가능", "중지(paused): 초점 없음, 일부 보임, 상호작용 불가", "정지(stopped): 전혀 안 보임, 상태 정보는 유지", "메모리 부족 시 시스템이 강제 종료할 수 있음"],
       answer: "활성(실행) 상태는 전경 화면에서 사용자 동작에 대한 초점을 가지며 상호작용이 가능한 상태다. 중지 상태는 초점은 없지만 사용자에게 일부 보이는 상태로 상호작용은 불가하며 메모리가 극도로 부족하면 강제 종료된다. 정지 상태는 사용자에게 전혀 보이지 않지만 모든 상태와 멤버 정보는 유지하고, 다른 컴포넌트가 메모리를 요청하면 시스템에 의해 강제 종료될 수 있다." },
     { id: "q8", topic: "t2", q: "액티비티 생명주기의 콜백 메소드 onCreate, onStart, onResume, onPause, onStop, onDestroy, onRestart를 각각 호출 시점과 역할 중심으로 설명하시오.",
@@ -766,13 +744,10 @@ public void onClick(View v) {
     { id: "q11", topic: "t2", q: "홈 버튼을 눌러 앱을 나갔다가 다시 돌아왔을 때 호출되는 콜백 순서를 쓰고, onRestart()가 필요한 이유를 설명하시오.",
       points: ["나갈 때: onPause → onStop", "돌아올 때: onRestart → onStart → onResume", "onCreate는 다시 호출되지 않음", "onRestart: onStop 이후 정지 상태 액티비티를 다시 표시"],
       answer: "홈 버튼으로 나가면 onPause → onStop이 호출되어 정지 상태가 되고, 다시 돌아오면 onRestart → onStart → onResume 순서로 호출된다. 정지 상태의 액티비티가 아직 메모리에 남아 있으면 새로 만들 필요가 없으므로 onCreate는 호출되지 않고, onStop() 이후 정지 상태에 있던 액티비티를 다시 화면에 표시할 때 onRestart()가 호출된다." },
-    { id: "q12", topic: "t2", q: "[보충] A 액티비티에서 B 액티비티를 실행했다가 뒤로 가기로 A로 돌아올 때의 콜백 호출 순서를 쓰시오. (B가 A를 완전히 가린다고 가정)",
-      points: ["A.onPause → B.onCreate → B.onStart → B.onResume → A.onStop", "B 종료: B.onPause → A.onRestart → A.onStart → A.onResume → B.onStop → B.onDestroy"],
-      answer: "B를 실행하면 A.onPause → B.onCreate → B.onStart → B.onResume → A.onStop 순이다. B에서 뒤로 가면 B.onPause → A.onRestart → A.onStart → A.onResume → B.onStop → B.onDestroy 순으로 호출되어 A가 다시 화면의 최상위가 된다." },
     { id: "q13", topic: "t2", q: "onStart()와 onResume()의 차이를 설명하시오.",
       points: ["onStart: 사용자에게 보여줄 준비가 되었을 때", "onResume: 실제로 보여지고 입력 처리 가능, 스택 최상위"],
       answer: "onStart()는 액티비티가 초기화를 마치고 사용자에게 보여줄 준비가 되었을 때 호출되고, onResume()은 액티비티가 실제로 사용자에게 보여지며 사용자의 입력을 처리할 수 있는, 액티비티 스택 최상위 상태가 될 때 호출된다." },
-    { id: "q14", topic: "t2", q: "onSaveInstanceState()와 onRestoreInstanceState()의 역할과, 이 두 메소드가 생명주기 메소드가 아니라는 말의 의미를 설명하시오.",
+    { id: "q14", topic: "t2", q: "[참고] onSaveInstanceState()와 onRestoreInstanceState()의 역할과, 이 두 메소드가 생명주기 메소드가 아니라는 말의 의미를 설명하시오.",
       points: ["메모리 부족으로 프로세스가 제거될 수 있음", "제거 전 Bundle에 상태 저장 / 이후 복원", "항상 호출되지 않음 → 개발자가 override해서 구현"],
       answer: "onPause나 onStop 이후 메모리가 부족하면 프로세스가 제거될 수 있어서, onSaveInstanceState()는 제거되기 전에 Bundle 객체에 액티비티의 동적(UI) 상태를 저장하고, onRestoreInstanceState()는 onCreate/onStart 이후 저장된 상태를 복원한다. 이 둘은 생명주기 메소드가 아니기 때문에 항상 호출되지는 않으며, 개발자가 해당 메소드를 재정의해 구현해야 한다." },
 
@@ -824,21 +799,18 @@ public void onClick(View v) {
       answer: "글씨 크기는 android:textSize 속성으로 지정하며 단위를 반드시 써야 하고 글씨 크기 단위는 sp를 사용한다(예: 24sp). 배경색은 android:background 속성에 RGB 색상값(예: #BDBDBD 또는 알파를 포함한 #FFBDBDBD)을 지정한다." },
 
     /* t6 */
-    { id: "q28", topic: "t6", q: "액티비티가 실행한 다른 액티비티로부터 결과를 되돌려 받아야 하는 경우는 어떤 상황이며, 그 흐름을 설명하시오.",
-      points: ["새 액티비티를 실행하며 데이터 전달", "실행된 액티비티가 종료되면 그 값을 돌려줌", "실행했던 액티비티에서 결과를 받아 처리"],
-      answer: "액티비티가 새로운 액티비티를 실행하면서 데이터를 전달한 후, 실행된 액티비티로부터 다시 데이터(결과)를 전달받아야 하는 경우다. 실행된 액티비티가 종료되면 종료한 액티비티가 가지고 있는 값을 실행했던 액티비티로 되돌려 주고, 되돌아온 쪽에서 그 결과를 받아 처리한다." },
     { id: "q29", topic: "t6", q: "LinearLayout의 특징과 android:orientation 속성을 설명하시오.",
       points: ["순서대로 한 방향으로 나열", "orientation으로 배치 방향 결정", "vertical(세로) / horizontal(가로)"],
       answer: "LinearLayout은 자식 View들을 순서대로 한 방향으로 나열해 주는 레이아웃이다. android:orientation 속성으로 배치 방향을 결정하는데, \"vertical\"이면 세로로, \"horizontal\"이면 가로로 나열한다." },
     { id: "q30", topic: "t6", q: "ConstraintLayout과 LinearLayout의 차이를 비교하여 설명하시오.",
       points: ["Constraint: 위젯 간 위치 관계(제약)로 배치, Design Tool 중심", "Linear: 한 방향 순서 나열 (orientation)", "각 레이아웃의 장단점"],
       answer: "ConstraintLayout은 위젯들 사이의 위치 관계(제약)와 기준점을 지정해 배치하며 Design Tool 중심으로 일정한 비율 구성과 빠른 배치가 쉽다. LinearLayout은 orientation(vertical/horizontal)에 따라 자식들을 한 방향으로 순서대로 나열하는 단순한 구조이다. 각 레이아웃마다 장단점이 있어 용도에 맞게 선택한다." },
-    { id: "q31", topic: "t6", q: "LinearLayout의 weightSum과 layout_weight 속성이 무엇인지 아는 대로 설명하시오. (자료의 예제에서 weightSum은 어떻게 쓰였는가?)",
-      points: ["LinearLayout 구성을 위해 알아야 하는 기본 속성", "weight: 공간을 비율로 나눔 [보충]", "예제의 weightSum은 설명을 위해 기술, 실제 미사용"],
-      answer: "weightSum과 layout_weight는 orientation과 함께 LinearLayout 구성을 위해 알아야 하는 기본 속성으로, layout_weight는 자식 View가 남은 공간을 비율로 나눠 갖게 하고 weightSum은 그 weight들의 합계 기준을 정한다. 다만 자료의 예제에서 weightSum은 LinearLayout 설명을 위해 적어 둔 것일 뿐 실제로는 사용하지 않았다." },
+    { id: "q31", topic: "t6", q: "LinearLayout 구성을 위해 알아야 하는 기본 속성 3가지를 쓰고, 자료의 예제에서 weightSum은 어떻게 쓰였는지 설명하시오.",
+      points: ["android:orientation, android:weightSum, android:layout_weight", "예제의 weightSum은 LinearLayout 설명을 위해 기술한 것, 실제 미사용"],
+      answer: "LinearLayout 구성을 위해 알아야 하는 기본 속성에는 android:orientation, android:weightSum, android:layout_weight 등이 있다. 자료의 예제에서 weightSum은 LinearLayout 설명을 위해 적어 둔 것일 뿐 실제로는 사용하지 않았다." },
     { id: "q32", topic: "t6", q: "실습 5의 activity_main.xml 레이아웃 구조를 설명하시오. (어떤 레이아웃 안에 무엇이 어떤 순서로 배치되는가)",
-      points: ["바깥: 세로(vertical) LinearLayout", "EditText → 가로 LinearLayout(start·close) → TextView \"Result :\" → 회색 TextView 순서", "안쪽 LinearLayout은 horizontal(+ gravity center)", "마지막 TextView는 match_parent로 남은 공간을 채워 결과 출력"],
-      answer: "바깥은 orientation이 vertical인 LinearLayout이라 자식들이 위에서 아래로 차례대로 놓인다. 맨 위에 보낼 값을 입력하는 EditText, 그 아래에 orientation이 horizontal인 LinearLayout을 넣어 start·close 버튼 2개를 가로로 가운데 정렬해 배치하고, 이어서 \"Result :\" 제목 TextView와 배경색 #FFBDBDBD인 TextView를 둔다. 마지막 TextView는 높이가 match_parent라 남은 아래 공간을 채우며, 종료된 액티비티로부터 돌려받은 결과를 출력하는 영역이 된다." },
+      points: ["바깥: 세로(vertical) LinearLayout", "EditText → 가로 LinearLayout(start·close) → TextView \"Result :\" → 회색 TextView 순서", "안쪽 LinearLayout은 horizontal", "마지막 TextView는 match_parent로 남은 공간을 채워 결과 출력"],
+      answer: "바깥은 orientation이 vertical인 LinearLayout이라 자식들이 위에서 아래로 차례대로 놓인다. 맨 위에 보낼 값을 입력하는 EditText, 그 아래에 orientation이 horizontal인 LinearLayout을 넣어 start·close 버튼 2개를 가로로 배치하고, 이어서 \"Result :\" 제목 TextView와 배경색 #FFBDBDBD인 TextView를 둔다. 마지막 TextView는 높이가 match_parent라 남은 아래 공간을 채우며, 종료된 액티비티로부터 돌려받은 결과를 출력하는 영역이 된다." },
   ],
 
   /* ─────────────────────── 치트시트 ─────────────────────── */
@@ -867,7 +839,6 @@ public void onClick(View v) {
           ["홈 버튼", "onPause → onStop"],
           ["홈에서 복귀", "onRestart → onStart → onResume"],
           ["뒤로가기/finish", "onPause → onStop → onDestroy"],
-          ["A→B 실행", "A.onPause → B.onCreate/onStart/onResume → A.onStop"],
         ],
       },
     },
