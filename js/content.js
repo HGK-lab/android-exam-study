@@ -97,7 +97,7 @@ window.STUDY = {
             ["<code>icon</code>, <code>label</code>", "사용할 아이콘, 타이틀(앱 이름) 라벨"],
             ["<code>activity android:name</code>", "액티비티 <b>클래스 이름 정의</b>. 정의(등록)되지 않은 액티비티는 <b>실행 불가</b>"],
             ["<code>exported</code>", "외부 앱이나 시스템이 이 액티비티를 실행할 수 있도록 허용하는 설정"],
-            ["<code>windowSoftInputMode</code>", "소프트 키보드가 나타날 때 화면의 반응 정의 (<code>adjustResize</code>)"],
+            ["<code>windowSoftInputMode</code>", "키보드에 대한 화면 반응 정의 (<code>adjustResize</code>)"],
             ["<code>intent-filter</code>", "이 액티비티를 동작시키는 인텐트를 결정. <code>MAIN</code>+<code>LAUNCHER</code> = <b>메인(시작) 액티비티임을 선언</b>"],
           ],
         },
@@ -106,10 +106,10 @@ window.STUDY = {
           t: "list",
           items: [
             "<b>사용자 인터페이스(UI)</b>를 작성하는 파일. 보기 모드: Code / Split / Design",
-            "<code>layout_width</code>, <code>layout_height</code> : View의 너비·높이. <code>match_parent</code> = 부모 기준으로 가득, <code>wrap_content</code> = 내용에 필요한 만큼",
+            "<code>layout_width</code>, <code>layout_height</code> : View의 너비·높이. <code>match_parent</code> = 부모 객체를 기준으로, <code>wrap_content</code> = 필요한 만큼",
             "<code>android:text</code> : TextView가 가지는 메시지",
             "<code>xmlns:android=\"…\"</code> : 안드로이드 속성을 사용한다고 정의한 <b>네임스페이스</b>",
-            "제공되는 레이아웃이 여러 종류 — Linear, Frame, Relative, Constraint …",
+            "제공되는 레이아웃이 여러 종류 — Linear, Frame, Relative …",
           ],
         },
         {
@@ -154,7 +154,7 @@ window.STUDY = {
         },
         {
           t: "tip",
-          html: "<b>시험 포인트</b> — “Manifest의 역할”, “res 하위 폴더 구분”, “setContentView가 하는 일”은 서술형 단골. <code>R.layout.activity_main</code> 은 <b>res/layout/activity_main.xml</b> 을 가리키는 리소스 ID.",
+          html: "<b>시험 포인트</b> — “Manifest의 역할”, “res 하위 폴더 구분”, “setContentView가 하는 일”.",
         },
       ],
     },
@@ -210,10 +210,10 @@ window.STUDY = {
           t: "table",
           head: ["상황", "호출 순서"],
           rows: [
-            ["앱 처음 실행", "<code>onCreate → onStart → onResume</code>"],
-            ["홈 버튼으로 나감", "<code>onPause → onStop</code>"],
-            ["홈에서 다시 돌아옴", "<code>onRestart → onStart → onResume</code> (onCreate는 호출 <b>안 됨</b>)"],
-            ["뒤로 가기 / finish()", "<code>onPause → onStop → onDestroy</code>"],
+            ["앱 처음 실행 (Activity launched)", "<code>onCreate → onStart → onResume</code>"],
+            ["홈 버튼으로 나감 (액티비티가 더 이상 안 보임)", "<code>onPause → onStop</code>"],
+            ["홈에서 다시 돌아옴 (사용자가 액티비티로 다시 이동)", "<code>onRestart → onStart → onResume</code> (onCreate는 호출 <b>안 됨</b>)"],
+            ["뒤로 가기 / finish() (액티비티 종료)", "<code>onPause → onStop → onDestroy</code>"],
           ],
         },
         { t: "h", text: "상태 저장하기 (p.12~13 참고)" },
@@ -317,7 +317,7 @@ window.STUDY = {
         {
           t: "fig",
           id: "ex2",
-          cap: "XML의 제약 속성이 화면 배치로 바뀌는 모습. 번호마다 왼쪽 화면의 파란 선 하나가 오른쪽 속성 하나에 대응한다. 위젯끼리 “누구의 어디에 붙는다”로 위치가 정해지는 것이 ConstraintLayout의 핵심.",
+          cap: "XML의 제약 속성이 화면 배치로 바뀌는 모습. 번호마다 왼쪽 화면의 파란 선 하나가 오른쪽 속성 하나에 대응한다.",
         },
         { t: "h", text: "클릭 이벤트 처리 코드" },
         {
@@ -398,7 +398,7 @@ window.STUDY = {
         {
           t: "fig",
           id: "intent",
-          cap: "Intent로 실행한 액티비티는 액티비티 스택 맨 위에 올라가 화면에 보이고, <code>finish()</code>는 맨 위 액티비티를 꺼내 아래에 있던 Main이 다시 보이게 한다. 위쪽 두 화면은 실습 3의 실제 레이아웃 배치(가로로 꽉 찬 Start Activity 버튼, 가운데 Close 버튼)를 따랐다.",
+          cap: "실행된 SecondActivity가 액티비티 스택의 최상위에 오고(p.10 onResume), 가려진 Main은 더 이상 최상위가 아니다(p.11 onStop). <code>finish()</code>로 Second를 종료하면 Main이 다시 보인다. 위쪽 두 화면은 실습 3의 실제 레이아웃 배치(가로로 꽉 찬 Start Activity 버튼, 가운데 Close 버튼)를 따랐다.",
         },
         { t: "h", text: "진행 단계" },
         {
@@ -432,7 +432,7 @@ window.STUDY = {
     android:exported="false"
     android:windowSoftInputMode="adjustResize" />`,
           notes: [
-            ["exported=\"false\"", "외부 앱이 직접 실행할 수 없음 — 앱 안에서 Intent로만 실행. intent-filter(MAIN/LAUNCHER)도 없으므로 시작 화면이 아님"],
+            ["exported=\"false\"", "외부 앱이나 시스템이 이 액티비티를 실행하는 것을 허용하지 않는 설정 (exported 설명은 수업자료 1 p.59)"],
             ["※", "코드 모양은 안드로이드 스튜디오 버전에 따라 차이가 있음 (자료에도 명시)"],
           ],
         },
@@ -690,7 +690,6 @@ public void onClick(View v) {
             ["orientation=\"horizontal\"", "안쪽 레이아웃: 버튼 2개를 <b>가로</b>로 나열 — 자료의 “배치 방향의 변경이 필요한 경우” 예"],
             ["weightSum=\"1\"", "LinearLayout 설명을 위해 적어 둔 것으로 이 예제에서는 사용하지 않음"],
             ["textView02 match_parent", "마지막 TextView가 <b>남은 아래 공간</b>을 채움 → 돌려받은 결과가 표시되는 회색 영역"],
-            ["padding=\"8dp\"", "레이아웃 안쪽 여백"],
           ],
         },
         {
@@ -699,7 +698,6 @@ public void onClick(View v) {
           rows: [
             ["배치 방식", "위젯 간 <b>위치 관계(제약)</b>로 배치", "<b>한 방향</b>으로 순서대로 나열"],
             ["핵심 속성", "<code>layout_constraint…</code>", "<code>orientation</code>, <code>layout_weight</code>"],
-            ["특징", "Design Tool 중심, 비율 구성·빠른 배치", "구조 단순, 쌓기식 UI에 적합"],
           ],
         },
       ],
@@ -749,7 +747,7 @@ public void onClick(View v) {
       answer: "onStart()는 액티비티가 초기화를 마치고 사용자에게 보여줄 준비가 되었을 때 호출되고, onResume()은 액티비티가 실제로 사용자에게 보여지며 사용자의 입력을 처리할 수 있는, 액티비티 스택 최상위 상태가 될 때 호출된다." },
     { id: "q14", topic: "t2", q: "[참고] onSaveInstanceState()와 onRestoreInstanceState()의 역할과, 이 두 메소드가 생명주기 메소드가 아니라는 말의 의미를 설명하시오.",
       points: ["메모리 부족으로 프로세스가 제거될 수 있음", "제거 전 Bundle에 상태 저장 / 이후 복원", "항상 호출되지 않음 → 개발자가 override해서 구현"],
-      answer: "onPause나 onStop 이후 메모리가 부족하면 프로세스가 제거될 수 있어서, onSaveInstanceState()는 제거되기 전에 Bundle 객체에 액티비티의 동적(UI) 상태를 저장하고, onRestoreInstanceState()는 onCreate/onStart 이후 저장된 상태를 복원한다. 이 둘은 생명주기 메소드가 아니기 때문에 항상 호출되지는 않으며, 개발자가 해당 메소드를 재정의해 구현해야 한다." },
+      answer: "onPause나 onStop 이후 메모리가 부족하면 프로세스가 제거될 수 있어서, onSaveInstanceState()는 제거되기 전에 Bundle 객체에 액티비티의 동적 상태를 저장하고, onRestoreInstanceState()는 onCreate/onStart 이후 저장된 상태를 복원한다. 이 둘은 생명주기 메소드가 아니기 때문에 항상 호출되지는 않으며, 개발자가 해당 메소드를 재정의해 구현해야 한다." },
 
     /* t3 */
     { id: "q15", topic: "t3", q: "ConstraintLayout의 특징과 장점을 설명하고, 다른 레이아웃의 종류를 쓰시오.",
@@ -795,8 +793,8 @@ public void onClick(View v) {
       points: ["key01 키로 값을 꺼냄", "\\n은 줄바꿈", "첫 줄 value, 둘째 줄 Data"],
       answer: "key01 키로 전달된 문자열 \"value\\nData\"를 꺼내 TextView에 설정한다. \\n은 줄바꿈 문자이므로 화면에는 첫 줄에 \"value\", 그 아랫줄에 \"Data\"가 두 줄로 표시된다." },
     { id: "q27", topic: "t5", q: "텍스트 크기와 배경색을 지정하는 속성과 사용하는 단위/형식을 설명하시오.",
-      points: ["android:textSize + 단위 필수, 글씨는 sp", "android:background (색상 #RRGGBB 또는 #AARRGGBB)"],
-      answer: "글씨 크기는 android:textSize 속성으로 지정하며 단위를 반드시 써야 하고 글씨 크기 단위는 sp를 사용한다(예: 24sp). 배경색은 android:background 속성에 RGB 색상값(예: #BDBDBD 또는 알파를 포함한 #FFBDBDBD)을 지정한다." },
+      points: ["android:textSize + 단위 필수, 글씨는 sp", "android:background (RGB 예: #BDBDBD 또는 #FFBDBDBD)"],
+      answer: "글씨 크기는 android:textSize 속성으로 지정하며 단위를 반드시 써야 하고 글씨 크기 단위는 sp를 사용한다(예: 24sp). 배경색은 android:background 속성에 RGB 색상값(예: #BDBDBD 또는 #FFBDBDBD)을 지정한다." },
 
     /* t6 */
     { id: "q29", topic: "t6", q: "LinearLayout의 특징과 android:orientation 속성을 설명하시오.",
@@ -804,7 +802,7 @@ public void onClick(View v) {
       answer: "LinearLayout은 자식 View들을 순서대로 한 방향으로 나열해 주는 레이아웃이다. android:orientation 속성으로 배치 방향을 결정하는데, \"vertical\"이면 세로로, \"horizontal\"이면 가로로 나열한다." },
     { id: "q30", topic: "t6", q: "ConstraintLayout과 LinearLayout의 차이를 비교하여 설명하시오.",
       points: ["Constraint: 위젯 간 위치 관계(제약)로 배치, Design Tool 중심", "Linear: 한 방향 순서 나열 (orientation)", "각 레이아웃의 장단점"],
-      answer: "ConstraintLayout은 위젯들 사이의 위치 관계(제약)와 기준점을 지정해 배치하며 Design Tool 중심으로 일정한 비율 구성과 빠른 배치가 쉽다. LinearLayout은 orientation(vertical/horizontal)에 따라 자식들을 한 방향으로 순서대로 나열하는 단순한 구조이다. 각 레이아웃마다 장단점이 있어 용도에 맞게 선택한다." },
+      answer: "ConstraintLayout은 위젯들 사이의 위치 관계(제약)와 기준점을 지정해 배치하며 Design Tool 중심으로 일정한 비율 구성과 빠른 배치가 쉽다. LinearLayout은 orientation(vertical/horizontal)에 따라 자식들을 한 방향으로 순서대로 나열한다. 각 레이아웃마다 장단점이 있다." },
     { id: "q31", topic: "t6", q: "LinearLayout 구성을 위해 알아야 하는 기본 속성 3가지를 쓰고, 자료의 예제에서 weightSum은 어떻게 쓰였는지 설명하시오.",
       points: ["android:orientation, android:weightSum, android:layout_weight", "예제의 weightSum은 LinearLayout 설명을 위해 기술한 것, 실제 미사용"],
       answer: "LinearLayout 구성을 위해 알아야 하는 기본 속성에는 android:orientation, android:weightSum, android:layout_weight 등이 있다. 자료의 예제에서 weightSum은 LinearLayout 설명을 위해 적어 둔 것일 뿐 실제로는 사용하지 않았다." },
@@ -820,7 +818,7 @@ public void onClick(View v) {
       table: {
         head: ["메소드", "한 줄"],
         rows: [
-          ["onCreate", "생성(처음 1번) · 리소스/레이아웃 초기화"],
+          ["onCreate", "생성될 때 처음 호출 · 리소스/레이아웃 초기화"],
           ["onStart", "보여줄 준비 완료"],
           ["onResume", "보이고 입력 처리 가능 · 스택 최상위"],
           ["onPause", "상호작용 중지 · 상태 저장"],
@@ -873,7 +871,7 @@ public void onClick(View v) {
           ["<code>android:hint</code> / <code>inputType</code>", "입력 안내 문구 / 입력 종류"],
           ["<code>layout_constraint…_to…Of</code>", "ConstraintLayout 위치 관계 (예: Top_toBottomOf)"],
           ["<code>android:orientation</code>", "LinearLayout 배치 방향 (vertical / horizontal)"],
-          ["<code>weightSum</code> / <code>layout_weight</code>", "LinearLayout 비율 분배 관련"],
+          ["<code>weightSum</code> / <code>layout_weight</code>", "LinearLayout 구성을 위해 알아야 하는 기본 속성"],
         ],
       },
     },
