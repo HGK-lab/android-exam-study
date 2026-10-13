@@ -373,5 +373,38 @@
     );
   };
 
+  /* ── 11. 제약 속성 읽는 법 (실습 4 Close 옆 배치, 실습 3 Close 가운데) ── */
+  D.cons = (m) => {
+    const n = m ? "consn" : "cons";
+    const label = "제약 속성은 layout_constraint A_to B Of=X 형식으로, 이 위젯의 A쪽을 X의 B쪽에 붙인다. 실습 4의 Close 버튼은 Start 버튼 오른쪽 옆에 같은 높이로, 실습 3의 Close 버튼은 네 방향 모두 parent에 붙어 화면 가운데에 놓인다";
+    const rule = (x, y, w, h) =>
+      r(x, y, w, h, "d-soft") + t(x + 14, y + 22, 'layout_constraint A _to B Of="X"', "d-m d-b") +
+      (m
+        ? lines(x + 14, y + 42, ["→ 이 위젯의 A쪽을 X의 B쪽에 붙인다", "X = parent(부모) 또는 다른 위젯의 id"], "d-s", "start", 16)
+        : t(x + 14, y + 42, "→ 이 위젯의 A쪽을 X의 B쪽에 붙인다  (X = parent(부모) 또는 다른 위젯의 id)", "d-s"));
+    const leg = (x, y, k, code, desc) => num(x + 8, y - 4, k) + t(x + 22, y, code, "d-m") + t(x + 22, y + 17, desc, "d-s");
+    const side = (ox, oy, w, ly) =>
+      phone(ox, oy, w, 100, "실습 4 · activity_main (p.12·14)") +
+      t(ox + 16, oy + 32, "Intent", "d-t") +
+      btn(ox + 16, oy + 46, 132, "Start SecondActivity", 24) + btn(ox + 156, oy + 46, 60, "Close", 24) +
+      `<path d="M${ox + 10} ${oy + 46} H${ox + 230}" class="d-acc d-dash"/>` +
+      `<circle cx="${ox + 152}" cy="${oy + 58}" r="3" class="d-acc-fill"/>` +
+      num(ox + 152, oy + 84, 1) + num(ox + 242, oy + 46, 2) +
+      leg(ox, ly, 1, 'button02 Start_toEndOf="@+id/button01"', "Close 왼쪽을 Start 버튼 오른쪽에 붙임 → 바로 옆") +
+      leg(ox, ly + 44, 2, 'button02 Top_toTopOf="@+id/button01"', "Close 위쪽을 Start 버튼 위쪽에 맞춤 → 같은 높이");
+    const center = (ox, oy, lx, ly) => {
+      const w = 200, h = 170, cx = ox + w / 2, cy = oy + h / 2;
+      return phone(ox, oy, w, h, "실습 3 · activity_second (p.54)") +
+        btn(cx - 30, cy - 12, 60, "Close", 24) +
+        arrow(n, `M${cx} ${cy - 14} V${oy + 14}`, "a") + arrow(n, `M${cx} ${cy + 14} V${oy + h - 4}`, "a") +
+        arrow(n, `M${cx - 32} ${cy} H${ox + 4}`, "a") + arrow(n, `M${cx + 32} ${cy} H${ox + w - 4}`, "a") +
+        t(cx + 6, oy + 34, "Top", "d-xs d-acc-t") + t(cx + 6, oy + h - 18, "Bottom", "d-xs d-acc-t") +
+        t(ox + 18, cy - 10, "Start", "d-xs d-acc-t") + t(ox + w - 18, cy - 10, "End", "d-xs d-acc-t", "end") +
+        leg(lx, ly, 3, 'button02 Top·Bottom·Start·End → "parent"', "네 방향 모두 부모에 붙음 → 가로·세로 가운데");
+    };
+    if (!m) return svg(n, 760, 336, label, rule(20, 12, 720, 56) + side(20, 110, 300, 236) + center(500, 110, 440, 304));
+    return svg(n, 360, 600, label, rule(20, 12, 320, 74) + side(20, 128, 320, 256) + center(80, 372, 20, 568));
+  };
+
   window.Diagrams = D;
 })();

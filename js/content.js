@@ -498,7 +498,7 @@ public void onClick(View v) {
       id: "t5",
       short: "실습4 데이터 전달",
       title: "기능/실습 4 — 액티비티 간 데이터 전달 (putExtra)",
-      source: "수업자료 3 · p.2~21",
+      source: "수업자료 3 · p.3~21",
       blocks: [
         { t: "h", text: "목적" },
         {
@@ -519,9 +519,15 @@ public void onClick(View v) {
           head: ["파일", "구성"],
           rows: [
             ["<code>activity_main.xml</code>", "TextView 1개(단순 표기용, 글씨 24sp) + Button 2개(액티비티 실행 / 종료). ConstraintLayout"],
+            ["<code>button01</code> / <code>button02</code>", "button01(Start SecondActivity)은 TextView 아래(<code>Top_toBottomOf=\"@+id/textView01\"</code>). button02(Close)는 <code>Start_toEndOf=\"@+id/button01\"</code> + <code>Top_toTopOf=\"@+id/button01\"</code> → button01 <b>오른쪽 옆, 같은 높이</b>에 나란히 (p.14 강조, p.12 화면)"],
             ["<code>activity_second.xml</code>", "TextView 2개(첫째: 단순 표기용 / 둘째 <code>result_textView</code>: <b>받은 데이터 표시용</b>, 색상·크기 조절) + Button 1개(<code>button03</code>, 종료)"],
             ["<code>result_textView</code>", "width·height 모두 <code>0dp</code> + 위는 첫 TextView 아래(<code>Top_toBottomOf</code>), 아래는 버튼 위(<code>Bottom_toTopOf</code>)에 제약 → <b>그 사이 공간을 꽉 채움</b>. <code>background=\"#FFBDBDBD\"</code>, <code>textSize=\"24sp\"</code>"],
           ],
+        },
+        {
+          t: "fig",
+          id: "cons",
+          cap: "제약 속성 이름은 “이 위젯의 쪽_to상대의 쪽Of”로 읽는다. ①②는 실습 4 activity_main의 Close 버튼(p.14에서 빨간 상자로 강조), ③은 실습 3 activity_second의 Close 버튼(p.54)이다.",
         },
         {
           t: "list",
@@ -780,6 +786,10 @@ public void onClick(View v) {
     { id: "q23", topic: "t4", q: "SecondActivity에서 onClick에 대상 구분(getId() 비교)이 필요 없는 이유를 쓰시오.",
       points: ["리스너에 등록된 대상이 1개", "onClick이 호출되면 그 버튼뿐"],
       answer: "SecondActivity에는 리스너에 등록된 버튼이 1개뿐이므로 onClick()이 호출되면 그 버튼이 눌린 것이 확실해 대상을 구분할 필요가 없고, 곧바로 finish()를 호출하면 된다." },
+    { id: "q34", topic: "t4", q: "실습 3의 activity_second.xml에서 Close 버튼(button02)이 화면 가운데에 놓이는 이유를 제약 속성으로 설명하시오.",
+      code: "app:layout_constraintBottom_toBottomOf=\"parent\"\napp:layout_constraintEnd_toEndOf=\"parent\"\napp:layout_constraintStart_toStartOf=\"parent\"\napp:layout_constraintTop_toTopOf=\"parent\"",
+      points: ["위·아래·시작·끝 네 방향 모두 parent에 제약", "가로는 Start·End, 세로는 Top·Bottom이 모두 부모에 걸림", "크기는 wrap_content → 부모 가운데에 배치"],
+      answer: "button02는 크기가 wrap_content이고, Top_toTopOf·Bottom_toBottomOf·Start_toStartOf·End_toEndOf가 모두 parent로 지정되어 위·아래·왼쪽·오른쪽 네 방향 모두 부모에 제약이 걸린다. 가로와 세로 양쪽이 모두 부모 기준으로 잡히므로 버튼은 화면의 가운데에 놓인다." },
 
     /* t5 */
     { id: "q24", topic: "t5", q: "액티비티 간 데이터 전달(실습 4)에 쓰이는 putExtra(), getIntent(), getStringExtra() 메소드가 각각 하는 일을 설명하시오.",
@@ -795,6 +805,10 @@ public void onClick(View v) {
     { id: "q27", topic: "t5", q: "텍스트 크기와 배경색을 지정하는 속성과 사용하는 단위/형식을 설명하시오.",
       points: ["android:textSize + 단위 필수, 글씨는 sp", "android:background (RGB 예: #BDBDBD 또는 #FFBDBDBD)"],
       answer: "글씨 크기는 android:textSize 속성으로 지정하며 단위를 반드시 써야 하고 글씨 크기 단위는 sp를 사용한다(예: 24sp). 배경색은 android:background 속성에 RGB 색상값(예: #BDBDBD 또는 #FFBDBDBD)을 지정한다." },
+    { id: "q33", topic: "t5", q: "실습 4의 activity_main.xml에서 Close 버튼(button02)에 지정된 다음 제약 속성이 하는 일을 설명하시오.",
+      code: "app:layout_constraintStart_toEndOf=\"@+id/button01\"\napp:layout_constraintTop_toTopOf=\"@+id/button01\"",
+      points: ["Start_toEndOf: button02의 시작(왼쪽)을 button01의 끝(오른쪽)에 붙임", "Top_toTopOf: button02의 위쪽을 button01의 위쪽에 맞춤", "결과: 두 버튼이 같은 높이로 가로로 나란히"],
+      answer: "layout_constraintStart_toEndOf=\"@+id/button01\"은 button02의 시작(왼쪽)을 button01의 끝(오른쪽)에 붙여 button01 바로 오른쪽에 놓고, layout_constraintTop_toTopOf=\"@+id/button01\"은 button02의 위쪽을 button01의 위쪽에 맞춘다. 그래서 Close 버튼은 Start SecondActivity 버튼 옆에 같은 높이로 나란히 배치된다." },
 
     /* t6 */
     { id: "q29", topic: "t6", q: "LinearLayout의 특징과 android:orientation 속성을 설명하시오.",
